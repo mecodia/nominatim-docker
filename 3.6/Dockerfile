@@ -30,6 +30,11 @@ RUN true \
         libboost-dev \
         libboost-system-dev \
         libboost-filesystem-dev \
+        # PostgreSQL.
+        postgresql-contrib \
+        postgresql-server-dev-12 \
+        postgresql-12-postgis-3 \
+        postgresql-12-postgis-3-scripts \
         # PHP and Apache 2.
         php \
         php-intl \
@@ -46,6 +51,11 @@ RUN true \
         git \
         curl \
         sudo
+
+# Configure postgres.
+RUN true \
+    && echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/12/main/pg_hba.conf \
+    && echo "listen_addresses='*'" >> /etc/postgresql/12/main/postgresql.conf
 
 # Osmium install to run continuous updates.
 RUN pip3 install osmium
@@ -90,6 +100,7 @@ RUN true \
         linux-libc-dev \
         libclang-*-dev \
         build-essential \
+        postgresql-server-dev-12 \
     && apt-get clean \
     # Clear temporary files and directories.
     && rm -rf \
