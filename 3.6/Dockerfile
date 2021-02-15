@@ -81,8 +81,8 @@ RUN true \
     && chmod o=rwx .
 
 # Apache configure.
-COPY local.php /app/src/build/settings/local.php
-COPY nominatim.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./local.php /app/src/build/settings/local.php
+COPY ./nominatim.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN curl http://www.nominatim.org/data/country_grid.sql.gz > /app/src/data/country_osm_grid.sql.gz
 
@@ -111,8 +111,8 @@ RUN true \
         /var/lib/apt/lists/* \
         /var/lib/postgresql/12/main/*
 
-COPY init.sh /app/init.sh
-COPY start.sh /app/start.sh
+COPY ./init.sh /app/init.sh
+COPY ./start.sh /app/start.sh
 
 # Collapse image to single layer.
 FROM scratch
